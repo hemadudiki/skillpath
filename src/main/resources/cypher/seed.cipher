@@ -1,0 +1,15 @@
+CREATE
+(java:Skill {name: 'Java'}),
+(jdbc:Skill {name: 'JDBC'}),
+(sql:Skill {name: 'SQL'}),
+(spring:Skill {name: 'Spring'}),
+(springboot:Skill {name: 'Spring Boot'}),
+(rest:Skill {name: 'REST API'}),
+(backend:JobRole {name: 'Backend Developer'}),
+
+(java)-[:LEADS_TO]->(jdbc),
+(jdbc)-[:REQUIRES]->(sql),
+(java)-[:LEADS_TO]->(spring),
+(spring)-[:LEADS_TO]->(springboot),
+(springboot)-[:REQUIRES]->(rest),
+(springboot)-[:USED_FOR]->(backend)

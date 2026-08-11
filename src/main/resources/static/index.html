@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SkillPath</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>SkillPath</h1>
+
+    <p class="subtitle">
+        Explore how skills are connected and find your learning path.
+    </p>
+
+    <div class="card">
+
+        <h2>Find Your Skill Path</h2>
+
+        <label>From Skill</label>
+        <select id="fromSkill">
+            <option value="">Select a skill</option>
+        </select>
+
+        <label>To Skill</label>
+        <select id="toSkill">
+            <option value="">Select a skill</option>
+        </select>
+
+        <button onclick="findPath()">Find Path</button>
+
+        <div id="result"></div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
