@@ -2,28 +2,43 @@ const fromSkill = document.getElementById("fromSkill");
 const toSkill = document.getElementById("toSkill");
 const result = document.getElementById("result");
 
-// Load skills from our Java backend
+// Load skills for "From Skill"
 fetch("/api/skills")
     .then(response => response.json())
     .then(skills => {
 
         skills.forEach(skill => {
 
-            const option1 = document.createElement("option");
-            option1.value = skill;
-            option1.textContent = skill;
+            const option = document.createElement("option");
+            option.value = skill;
+            option.textContent = skill;
 
-            const option2 = document.createElement("option");
-            option2.value = skill;
-            option2.textContent = skill;
-
-            fromSkill.appendChild(option1);
-            toSkill.appendChild(option2);
+            fromSkill.appendChild(option);
         });
 
     })
     .catch(error => {
         result.innerHTML = "Unable to load skills. Please try again.";
+        console.error(error);
+    });
+
+// Load targets for "To Skill / Target"
+fetch("/api/targets")
+    .then(response => response.json())
+    .then(targets => {
+
+        targets.forEach(target => {
+
+            const option = document.createElement("option");
+            option.value = target;
+            option.textContent = target;
+
+            toSkill.appendChild(option);
+        });
+
+    })
+    .catch(error => {
+        result.innerHTML = "Unable to load targets. Please try again.";
         console.error(error);
     });
 

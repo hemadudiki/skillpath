@@ -45,6 +45,25 @@ public class SkillController {
 
         return skills;
     }
+    @GetMapping("/api/targets")
+    public List<String> getTargets() {
+
+        List<String> targets = new ArrayList<>();
+
+        try (Session session = driver.session()) {
+
+            var result = session.run(
+                    "MATCH (r:JobRole) RETURN r.name AS name ORDER BY name"
+            );
+
+            while (result.hasNext()) {
+                Record record = result.next();
+                targets.add(record.get("name").asString());
+            }
+        }
+
+        return targets;
+    }
 
     @GetMapping("/api/path")
     public List<Map<String, Object>> findPath(
@@ -57,11 +76,9 @@ public class SkillController {
 
             var result = session.run(
                     """
-                    MATCH path = (start:Skill {name: $from})
-                    -[:LEADS_TO*1..3]->
-                    (end:Skill {name: $to})
-                    RETURN [node IN nodes(path) | node.name] AS path
-                    LIMIT 1
+                   MATCH path = (start {name: $from})-[:LEADS_TO*1..10]->(end {name: $to})
+RETURN [node IN nodes(path) | node.name] AS path
+LIMIT 1
                     """,
                     Values.parameters("from", from,"to", to)
             );
